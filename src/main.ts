@@ -1,4 +1,7 @@
 import { createApp } from "vue"
 import App from "./App.vue"
 
-createApp(App).mount("#app")
+import "element-plus/dist/index.css"
+import { customGlobalConfig } from "./global"
+
+createApp(App).use(customGlobalConfig).mount("#app")
