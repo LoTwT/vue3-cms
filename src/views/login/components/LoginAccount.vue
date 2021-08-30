@@ -36,7 +36,6 @@ const formRef = ref<InstanceType<typeof ElForm>>()
 
 // 处理账号登录
 const dealAccountLogin = (isKeepPassword: boolean) => {
-  console.log("account")
   formRef.value?.validate((valid) => {
     if (valid) {
       // 1. 判断是否需要记住密码
@@ -50,7 +49,10 @@ const dealAccountLogin = (isKeepPassword: boolean) => {
       }
 
       // 2. 进行登录验证
-      store.dispatch("login/accountLoginAction", { ...account })
+      store.dispatch("login/accountLoginAction", {
+        name: account.username,
+        password: account.password,
+      })
     }
   })
 }

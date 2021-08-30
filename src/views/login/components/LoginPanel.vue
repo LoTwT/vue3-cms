@@ -33,7 +33,7 @@ import LoginAccount from "./LoginAccount.vue"
 import LoginPhone from "./LoginPhone.vue"
 
 const currentTab = ref<string>("account")
-const isKeepPassword = ref(false)
+const isKeepPassword = ref(true)
 
 const loginAccountRef = ref<InstanceType<typeof LoginAccount>>()
 const loginPhoneRef = ref<InstanceType<typeof LoginPhone>>()
