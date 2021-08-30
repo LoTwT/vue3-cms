@@ -1,18 +1,18 @@
 <template>
   <div class="login-panel-wrapper">
     <h1 class="panel-title">后台管理系统</h1>
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs v-model="currentTab" type="border-card" stretch>
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i> 账号登录</span>
         </template>
         <login-account ref="loginAccountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i> 手机登录</span>
         </template>
-        <login-phone />
+        <login-phone ref="loginPhoneRef" />
       </el-tab-pane>
     </el-tabs>
 
@@ -32,11 +32,17 @@ import { ref } from "vue"
 import LoginAccount from "./LoginAccount.vue"
 import LoginPhone from "./LoginPhone.vue"
 
-const loginAccountRef = ref<InstanceType<typeof LoginAccount>>()
+const currentTab = ref<string>("account")
+const isKeepPassword = ref(false)
 
-const isKeepPassword = ref(true)
+const loginAccountRef = ref<InstanceType<typeof LoginAccount>>()
+const loginPhoneRef = ref<InstanceType<typeof LoginPhone>>()
 const handleLoginClick = () => {
-  loginAccountRef.value?.dealAccountLogin()
+  if (currentTab.value === "account") {
+    loginAccountRef.value?.dealAccountLogin(isKeepPassword.value)
+  } else if (currentTab.value === "phone") {
+    loginPhoneRef.value?.dealPhoneLogin()
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="login-account-wrapper">
     <el-form
       ref="formRef"
-      label-width="60px"
+      label-width="80px"
       :rules="accountFormRules"
       :model="account"
     >
@@ -10,7 +10,7 @@
         <el-input v-model="account.username" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="account.password" />
+        <el-input v-model="account.password" show-password />
       </el-form-item>
     </el-form>
   </div>
@@ -18,27 +18,44 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue"
-import { accountFormRules } from "../config/account.config"
+import { accountFormRules } from "../config/login.config"
 import type { ElForm } from "element-plus"
+import { useLocalCache } from "@/utils/cache"
+import { useStore } from "vuex"
+
+const localCache = useLocalCache()
+const store = useStore()
 
 // 账号信息
 const account = reactive({
-  username: "",
-  password: "",
+  username: localCache.getCache("username") ?? "",
+  password: localCache.getCache("password") ?? "",
 })
 
 const formRef = ref<InstanceType<typeof ElForm>>()
 
 // 处理账号登录
-const dealAccountLogin = () => {
+const dealAccountLogin = (isKeepPassword: boolean) => {
+  console.log("account")
   formRef.value?.validate((valid) => {
     if (valid) {
-      // 执行登录逻辑
+      // 1. 判断是否需要记住密码
+      if (isKeepPassword) {
+        // 进行本地缓存
+        localCache.setCache("username", account.username)
+        localCache.setCache("password", account.password)
+      } else {
+        localCache.removeCache("username")
+        localCache.removeCache("password")
+      }
+
+      // 2. 进行登录验证
+      store.dispatch("login/accountLoginAction", { ...account })
     }
   })
 }
 
-defineExpose({ dealAccountLogin: dealAccountLogin })
+defineExpose({ dealAccountLogin })
 </script>
 
 <style lang="less" scoped></style>
