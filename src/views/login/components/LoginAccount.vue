@@ -16,39 +16,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, ref } from "vue"
+<script lang="ts" setup>
+import { reactive, ref } from "vue"
 import { accountFormRules } from "../config/account.config"
 import type { ElForm } from "element-plus"
 
-export default defineComponent({
-  setup() {
-    // 账号信息
-    const account = reactive({
-      username: "",
-      password: "",
-    })
-
-    const formRef = ref<InstanceType<typeof ElForm>>()
-
-    // 处理账号登录
-    const dealAccountLogin = () => {
-      console.log("账号登录")
-      formRef.value?.validate((valid) => {
-        if (valid) {
-          // 执行登录逻辑
-        }
-      })
-    }
-
-    return {
-      account,
-      formRef,
-      dealAccountLogin,
-      accountFormRules,
-    }
-  },
+// 账号信息
+const account = reactive({
+  username: "",
+  password: "",
 })
+
+const formRef = ref<InstanceType<typeof ElForm>>()
+
+// 处理账号登录
+const dealAccountLogin = () => {
+  formRef.value?.validate((valid) => {
+    if (valid) {
+      // 执行登录逻辑
+    }
+  })
+}
+
+defineExpose({ dealAccountLogin: dealAccountLogin })
 </script>
 
 <style lang="less" scoped></style>

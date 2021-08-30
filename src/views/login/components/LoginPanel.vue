@@ -36,7 +36,6 @@ const loginAccountRef = ref<InstanceType<typeof LoginAccount>>()
 
 const isKeepPassword = ref(true)
 const handleLoginClick = () => {
-  console.log("aaa")
   loginAccountRef.value?.dealAccountLogin()
 }
 </script>
