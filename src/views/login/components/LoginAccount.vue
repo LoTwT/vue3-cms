@@ -1,10 +1,10 @@
 <template>
   <div class="login-account-wrapper">
     <el-form
+      ref="formRef"
       label-width="60px"
       :rules="accountFormRules"
       :model="account"
-      ref="formRef"
     >
       <el-form-item label="帐号" prop="username">
         <el-input v-model="account.username" />
