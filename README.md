@@ -4,7 +4,7 @@ a cms project...
 
 ## config
 
-`yarn dev` 时如需使用 proxy，请配置 `.env.development` 文件内的 `VITE_API_PROXY_URL` :smile:
+`yarn dev` 时如需使用 proxy，请配置 `.env.development` 文件内的 `VITE_API_PROXY_URL`  :smile:
 
 ## errors
 

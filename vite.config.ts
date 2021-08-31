@@ -4,6 +4,7 @@ import VitePluginElementPlus from "vite-plugin-element-plus"
 import path from "path"
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
+  // .env
   const root = process.cwd()
   const env = loadEnv(mode, root)
   const { VITE_API_PROXY_URL } = env
