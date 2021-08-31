@@ -12,7 +12,11 @@ import {
   ElInput,
   ElLink,
   ElMain,
+  ElMenu,
+  ElMenuItem,
+  ElMenuItemGroup,
   ElRadio,
+  ElSubMenu,
   ElTabPane,
   ElTabs,
 } from "element-plus"
@@ -31,6 +35,10 @@ const components = [
   ElHeader,
   ElAside,
   ElMain,
+  ElMenu,
+  ElMenuItem,
+  ElMenuItemGroup,
+  ElSubMenu,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {

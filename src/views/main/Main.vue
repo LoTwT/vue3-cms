@@ -1,7 +1,9 @@
 <template>
   <div class="main-wrapper">
     <el-container class="main-content">
-      <el-aside width="210px">Aside</el-aside>
+      <el-aside width="210px">
+        <NavMenu />
+      </el-aside>
       <el-container class="page">
         <el-header class="page-header">Header</el-header>
         <el-main class="page-content">Main</el-main>
@@ -10,7 +12,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import NavMenu from "@/components/nav-menu/index"
+</script>
 
 <style scoped lang="less">
 .main-wrapper {

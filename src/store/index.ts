@@ -1,5 +1,5 @@
-import { createStore } from "vuex"
-import { IBaseState } from "./types"
+import { createStore, Store, useStore as useVuexStore } from "vuex"
+import { IBaseState, IStore } from "./types"
 import login from "./login/login"
 
 const store = createStore<IBaseState>({
@@ -20,3 +20,6 @@ export default store
 export const setupStore = () => {
   store.dispatch("login/loadLocalLogin")
 }
+
+// 封装自定义 useStore 更好支持 typescript
+export const useStore = (): Store<IStore> => useVuexStore()
