@@ -1,13 +1,15 @@
 import { CmsRequest } from "./request/index"
 import { BASE_URL, TIME_OUT } from "./request/config"
+import { useLocalCache } from "@/utils/cache"
 
+const localCache = useLocalCache()
 const cmsRequest = new CmsRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
       // 携带 token 拦截示例
-      const token = ""
+      const token = localCache.getCache("token")
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
