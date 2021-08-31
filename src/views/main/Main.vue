@@ -1,11 +1,13 @@
 <template>
   <div class="main-wrapper">
     <el-container class="main-content">
-      <el-aside width="210px">
-        <NavMenu />
+      <el-aside :width="isCollapse ? '60px' : '210px'">
+        <NavMenu :collapse="isCollapse" />
       </el-aside>
       <el-container class="page">
-        <el-header class="page-header">Header</el-header>
+        <el-header class="page-header">
+          <nav-header @foldChange="handleFoleChange" />
+        </el-header>
         <el-main class="page-content">Main</el-main>
       </el-container>
     </el-container>
@@ -13,7 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue"
 import NavMenu from "@/components/nav-menu/index"
+import NavHeader from "@/components/nav-header/index"
+
+const isCollapse = ref(false)
+const handleFoleChange = (isFold: boolean) => (isCollapse.value = isFold)
 </script>
 
 <style scoped lang="less">

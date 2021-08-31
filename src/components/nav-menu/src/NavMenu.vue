@@ -2,7 +2,7 @@
   <div class="nav-menu-wrapper">
     <div class="logo">
       <img src="@/assets/img/logo.svg" alt="logo" class="img" />
-      <span class="logo-title">CMS</span>
+      <span v-if="!collapse" class="logo-title">CMS</span>
     </div>
     <el-menu
       default-active="2"
@@ -10,6 +10,7 @@
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
+      :collapse="collapse"
     >
       <template v-for="menu in userMenus" :key="menu.id">
         <!-- 二级菜单 -->
@@ -43,6 +44,13 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useStore } from "@/store/index"
+
+defineProps({
+  collapse: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const store = useStore()
 const userMenus = computed(() => store.state.login.userMenus)
