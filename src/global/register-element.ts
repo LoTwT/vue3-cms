@@ -2,12 +2,16 @@ import { App } from "vue"
 
 import "element-plus/theme-chalk/base.css"
 import {
+  ElAside,
   ElButton,
   ElCheckbox,
+  ElContainer,
   ElForm,
   ElFormItem,
+  ElHeader,
   ElInput,
   ElLink,
+  ElMain,
   ElRadio,
   ElTabPane,
   ElTabs,
@@ -23,6 +27,10 @@ const components = [
   ElTabPane,
   ElCheckbox,
   ElLink,
+  ElContainer,
+  ElHeader,
+  ElAside,
+  ElMain,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {
