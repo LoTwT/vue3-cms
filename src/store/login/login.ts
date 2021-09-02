@@ -32,6 +32,10 @@ const login: Module<ILoginState, IBaseState> = {
     },
     changeUserMenus(state, userMenus: any[]) {
       state.userMenus = userMenus
+
+      // userMenus => routes
+
+      // routes => router.main.children
     },
   },
   actions: {
