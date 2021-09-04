@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "license": "ISC",
   "scripts": {
-    "dev": "yarn lint && vite",
+    "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "lint": "eslint --fix --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\"",

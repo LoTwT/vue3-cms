@@ -23,7 +23,10 @@
             </template>
             <!-- 遍历里面的 submenu -->
             <template v-for="submenu in menu.children" :key="submenu.id">
-              <el-menu-item :index="submenu.id.toString()">
+              <el-menu-item
+                :index="submenu.id.toString()"
+                @click="handleSubMenuClick(submenu)"
+              >
                 <i v-if="submenu.icon" :class="submenu.icon"></i>
                 <span>{{ submenu.name }}</span>
               </el-menu-item>
@@ -44,6 +47,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useStore } from "@/store/index"
+import { useRouter } from "vue-router"
 
 defineProps({
   collapse: {
@@ -54,6 +58,10 @@ defineProps({
 
 const store = useStore()
 const userMenus = computed(() => store.state.login.userMenus)
+
+const router = useRouter()
+const handleSubMenuClick = (submenu: any) =>
+  router.push({ path: submenu.url ?? "/not-found" })
 </script>
 
 <style scoped lang="less">

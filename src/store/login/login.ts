@@ -9,6 +9,7 @@ import {
 import { IAccount } from "@/service/login/types"
 import { useLocalCache } from "@/utils/cache"
 import router from "@/router/index"
+import { mapMenusToRoutes } from "@/utils/map-menus"
 
 // 本地存储
 const localCache = useLocalCache()
@@ -34,8 +35,9 @@ const login: Module<ILoginState, IBaseState> = {
       state.userMenus = userMenus
 
       // userMenus => routes
-
+      const routes = mapMenusToRoutes(userMenus)
       // routes => router.main.children
+      routes.forEach((route) => router.addRoute("main", route))
     },
   },
   actions: {
