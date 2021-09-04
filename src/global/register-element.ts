@@ -3,9 +3,13 @@ import { App } from "vue"
 import "element-plus/theme-chalk/base.css"
 import {
   ElAside,
+  ElAvatar,
   ElButton,
   ElCheckbox,
   ElContainer,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
   ElForm,
   ElFormItem,
   ElHeader,
@@ -39,6 +43,10 @@ const components = [
   ElMenuItem,
   ElMenuItemGroup,
   ElSubMenu,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElAvatar,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {
