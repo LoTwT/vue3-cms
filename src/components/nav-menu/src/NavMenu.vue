@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { computed, ref } from "vue"
+import { useStore } from "@/store/index"
+import { useRoute, useRouter } from "vue-router"
+import { mapPathToMenu } from "@/utils/map-menus"
+
+defineProps({
+  collapse: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const store = useStore()
+const userMenus = computed(() => store.state.login.userMenus)
+
+const router = useRouter()
+const handleSubMenuClick = (submenu: any) =>
+  router.push({ path: submenu.url ?? "/not-found" })
+
+const route = useRoute()
+const currentPath = route.path
+
+const defaultMenu = mapPathToMenu(userMenus.value, currentPath)
+const defaultValue = ref(defaultMenu.id + "")
+</script>
+
 <template>
   <div class="nav-menu-wrapper">
     <div class="logo">
@@ -5,7 +32,7 @@
       <span v-if="!collapse" class="logo-title">CMS</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       background-color="#0c2135"
       text-color="#b7bdc3"
@@ -43,26 +70,6 @@
     </el-menu>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from "vue"
-import { useStore } from "@/store/index"
-import { useRouter } from "vue-router"
-
-defineProps({
-  collapse: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-const store = useStore()
-const userMenus = computed(() => store.state.login.userMenus)
-
-const router = useRouter()
-const handleSubMenuClick = (submenu: any) =>
-  router.push({ path: submenu.url ?? "/not-found" })
-</script>
 
 <style scoped lang="less">
 .nav-menu-wrapper {
