@@ -1,3 +1,4 @@
+import { IBreadcrumb } from "@/base-ui/breadcrumb"
 import { RouteRecordRaw } from "vue-router"
 
 export let firstMenu: any = null
@@ -36,12 +37,28 @@ export const mapMenusToRoutes = (userMenus: any[]): RouteRecordRaw[] => {
   return routes
 }
 
-export const mapPathToMenu = (userMenus: any[], currentPath: string): any => {
+export const mapPathToMenu = (
+  userMenus: any[],
+  currentPath: string,
+  breadcrumbs?: IBreadcrumb[],
+): any => {
   for (const menu of userMenus) {
     // 有 submenu 需要递归查找
     if (menu.type === 1) {
       const foundMenu = mapPathToMenu(menu.children ?? [], currentPath)
-      if (foundMenu) return foundMenu
+      if (foundMenu) {
+        breadcrumbs?.push({ name: menu.name })
+        breadcrumbs?.push({ name: foundMenu.name })
+        return foundMenu
+      }
     } else if (menu.type === 2 && menu.url === currentPath) return menu
   }
+}
+
+export const mapBreadcrumbs = (userMenus: any[], currentPath: string) => {
+  const breadcrumbs: IBreadcrumb[] = []
+
+  mapPathToMenu(userMenus, currentPath, breadcrumbs)
+
+  return breadcrumbs
 }

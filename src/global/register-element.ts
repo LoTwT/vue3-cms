@@ -4,6 +4,8 @@ import "element-plus/theme-chalk/base.css"
 import {
   ElAside,
   ElAvatar,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElButton,
   ElCheckbox,
   ElCol,
@@ -57,6 +59,8 @@ const components = [
   ElSelect,
   ElOption,
   ElDatePicker,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {
