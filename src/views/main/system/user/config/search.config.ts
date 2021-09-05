@@ -10,16 +10,19 @@ export const searchFormConfig: IForm = {
   },
   formItems: [
     {
+      field: "username",
       type: EFormType.INPUT,
       label: "用户名",
       placeholder: "请输入用户名",
     },
     {
+      field: "password",
       type: EFormType.PASSWORD,
       label: "密码",
       placeholder: "请输入密码",
     },
     {
+      field: "gender",
       type: EFormType.SELECT,
       label: "性别",
       placeholder: "请选择性别",
@@ -29,6 +32,7 @@ export const searchFormConfig: IForm = {
       ],
     },
     {
+      field: "createTime",
       type: EFormType.DATE_PICKER,
       label: "创建时间",
       otherOptions: {

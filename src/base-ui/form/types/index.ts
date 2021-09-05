@@ -6,6 +6,7 @@ export const enum EFormType {
 }
 
 export interface IFormItem {
+  field: string
   type: EFormType
   label: string
   rules?: any[]

@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { ref, watch } from "vue"
 import { IFormItem, EFormType } from "../types"
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
+    modelValue: { [key: string]: any }
     formItems: IFormItem[]
     labelWidth: string
     itemStyle: Object
@@ -23,6 +25,14 @@ withDefaults(
     }),
   },
 )
+
+const emit = defineEmits(["update:modelValue"])
+
+const formData = ref({ ...props.modelValue })
+
+watch(formData, (newValue) => emit("update:modelValue", newValue), {
+  deep: true,
+})
 </script>
 
 <template>
@@ -43,27 +53,30 @@ withDefaults(
                 "
               >
                 <el-input
+                  v-model="formData[`${item.field}`]"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :show-password="item.type === EFormType.PASSWORD"
-                  style="width: 100%"
                 />
               </template>
               <template v-else-if="item.type === EFormType.SELECT">
                 <el-select
-                  :placeholder="item.placeholder"
+                  v-model="formData[`${item.field}`]"
                   v-bind="item.otherOptions"
+                  :placeholder="item.placeholder"
                   style="width: 100%"
                 >
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
+                    :value="option.value"
                     >{{ option.title }}</el-option
                   >
                 </el-select>
               </template>
               <template v-else-if="item.type === EFormType.DATE_PICKER">
                 <el-date-picker
+                  v-model="formData[`${item.field}`]"
                   v-bind="item.otherOptions"
                   style="width: 100%"
                 ></el-date-picker>
