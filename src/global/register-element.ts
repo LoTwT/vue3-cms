@@ -6,7 +6,9 @@ import {
   ElAvatar,
   ElButton,
   ElCheckbox,
+  ElCol,
   ElContainer,
+  ElDatePicker,
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
@@ -19,7 +21,10 @@ import {
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
+  ElOption,
   ElRadio,
+  ElRow,
+  ElSelect,
   ElSubMenu,
   ElTabPane,
   ElTabs,
@@ -47,6 +52,11 @@ const components = [
   ElDropdownItem,
   ElDropdownMenu,
   ElAvatar,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {
