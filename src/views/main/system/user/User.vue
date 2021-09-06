@@ -3,6 +3,7 @@ import { computed } from "vue"
 import PageSearch from "@/components/page-search/index"
 import { searchFormConfig } from "./config/search.config"
 import { useStore } from "@/store/index"
+import CmsTable from "@/base-ui/table/index"
 
 const store = useStore()
 store.dispatch("system/getPageListAction", {
@@ -15,13 +16,29 @@ store.dispatch("system/getPageListAction", {
 
 const userList = computed(() => store.state.system.userList)
 const userCount = computed(() => store.state.system.userCount)
+
+const propList = [
+  { prop: "name", label: "用户名", minWidth: "100" },
+  { prop: "realname", label: "真实姓名", minWidth: "100" },
+  { prop: "cellphone", label: "手机号码", minWidth: "100" },
+  { prop: "enable", label: "状态", minWidth: "100" },
+  { prop: "createAt", label: "创建时间", minWidth: "250" },
+  { prop: "updateAt", label: "更新时间", minWidth: "250" },
+]
 </script>
 
 <template>
   <div class="user">
     <page-search :search-form-config="searchFormConfig" />
-    <div class="content"></div>
+    <div class="content">
+      <cms-table :data-list="userList" :prop-list="propList" />
+    </div>
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.content {
+  padding: 20px;
+  border-top: solid 20px #f5f5f5;
+}
+</style>

@@ -28,6 +28,8 @@ import {
   ElRow,
   ElSelect,
   ElSubMenu,
+  ElTable,
+  ElTableColumn,
   ElTabPane,
   ElTabs,
 } from "element-plus"
@@ -61,6 +63,8 @@ const components = [
   ElDatePicker,
   ElBreadcrumb,
   ElBreadcrumbItem,
+  ElTable,
+  ElTableColumn,
 ]
 
 export const customGlobalElementPlus = (app: App<Element>): void => {
