@@ -1,6 +1,7 @@
 import { createStore, Store, useStore as useVuexStore } from "vuex"
 import { IBaseState, IStore } from "./types"
 import login from "./login/login"
+import system from "./main/system/system"
 
 const store = createStore<IBaseState>({
   state() {
@@ -11,7 +12,7 @@ const store = createStore<IBaseState>({
   },
   mutations: {},
   actions: {},
-  modules: { login },
+  modules: { login, system },
 })
 
 export default store
