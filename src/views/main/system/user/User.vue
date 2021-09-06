@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
-import CmsForm from "@/base-ui/form/index"
+import PageSearch from "@/components/page-search/index"
 import { searchFormConfig } from "./config/search.config"
-
-const formData = ref({
-  username: "",
-  password: "",
-  gender: "",
-  createTime: "",
-})
 </script>
 
 <template>
   <div class="user">
-    <div class="search">
-      <cms-form v-model="formData" v-bind="searchFormConfig" />
-    </div>
+    <page-search :search-form-config="searchFormConfig" />
+    <div class="content"></div>
   </div>
 </template>
 

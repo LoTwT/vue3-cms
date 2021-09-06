@@ -37,6 +37,9 @@ watch(formData, (newValue) => emit("update:modelValue", newValue), {
 
 <template>
   <div class="form">
+    <div class="form-header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -86,6 +89,9 @@ watch(formData, (newValue) => emit("update:modelValue", newValue), {
         </template>
       </el-row>
     </el-form>
+    <div class="form-footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
