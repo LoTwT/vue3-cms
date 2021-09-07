@@ -60,16 +60,16 @@ const handleSelectionChange = (value: any) => emit("selectionChange", value)
     </el-table>
     <div class="footer">
       <slot name="footer">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
+        <!-- <el-pagination
           :current-page="currentPage4"
           :page-sizes="[100, 200, 300, 400]"
           :page-size="100"
           layout="total, sizes, prev, pager, next, jumper"
           :total="400"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
         >
-        </el-pagination>
+        </el-pagination> -->
       </slot>
     </div>
   </div>
