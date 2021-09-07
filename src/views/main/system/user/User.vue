@@ -25,13 +25,13 @@ const propList = [
   {
     prop: "createAt",
     label: "创建时间",
-    minWidth: "250",
+    minWidth: "200",
     slotName: "createAt",
   },
   {
     prop: "updateAt",
     label: "更新时间",
-    minWidth: "250",
+    minWidth: "200",
     slotName: "updateAt",
   },
   {
@@ -45,6 +45,8 @@ const showIndexColumn = true
 const showSelectColumn = true
 // 获得选择的数据
 const getSelectionChange = (value: any) => value
+
+const headerTitle = "用户列表"
 </script>
 
 <template>
@@ -56,8 +58,15 @@ const getSelectionChange = (value: any) => value
         :prop-list="propList"
         :show-index-column="showIndexColumn"
         :show-select-column="showSelectColumn"
+        :header-title="headerTitle"
         @selection-change="getSelectionChange"
       >
+        <!-- header 插槽 -->
+        <template #headerHandler>
+          <el-button icon="el-icon-refresh"></el-button>
+          <el-button type="primary" size="medium">新建用户</el-button>
+        </template>
+        <!-- 数据列插槽 -->
         <template #status="scope">
           <el-button
             size="mini"

@@ -24,6 +24,7 @@ import {
   ElMenuItem,
   ElMenuItemGroup,
   ElOption,
+  ElPagination,
   ElRadio,
   ElRow,
   ElSelect,
@@ -65,6 +66,7 @@ const components = [
   ElBreadcrumbItem,
   ElTable,
   ElTableColumn,
+  ElPagination,
 ]
 
 export const registerGlobalElementPlus = (app: App<Element>): void => {
