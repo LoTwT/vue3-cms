@@ -34,14 +34,30 @@ const propList = [
     minWidth: "250",
     slotName: "updateAt",
   },
+  {
+    label: "操作",
+    minWidth: "120",
+    slotName: "handler",
+  },
 ]
+
+const showIndexColumn = true
+const showSelectColumn = true
+// 获得选择的数据
+const getSelectionChange = (value: any) => value
 </script>
 
 <template>
   <div class="user">
     <page-search :search-form-config="searchFormConfig" />
     <div class="content">
-      <cms-table :data-list="userList" :prop-list="propList">
+      <cms-table
+        :data-list="userList"
+        :prop-list="propList"
+        :show-index-column="showIndexColumn"
+        :show-select-column="showSelectColumn"
+        @selection-change="getSelectionChange"
+      >
         <template #status="scope">
           <el-button
             size="mini"
@@ -55,6 +71,16 @@ const propList = [
         </template>
         <template #updateAt="scope">
           <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
+        </template>
+        <template #handler>
+          <div class="handle-btns">
+            <el-button icon="el-icon-edit" type="text" size="mini">
+              编辑
+            </el-button>
+            <el-button icon="el-icon-delete" type="text" size="mini">
+              删除
+            </el-button>
+          </div>
         </template>
       </cms-table>
     </div>
