@@ -15,7 +15,7 @@ store.dispatch("system/getPageListAction", {
 })
 
 const userList = computed(() => store.state.system.userList)
-const userCount = computed(() => store.state.system.userCount)
+// const userCount = computed(() => store.state.system.userCount)
 
 const propList = [
   { prop: "name", label: "用户名", minWidth: "100" },
@@ -43,13 +43,18 @@ const propList = [
     <div class="content">
       <cms-table :data-list="userList" :prop-list="propList">
         <template #status="scope">
-          <el-button>{{ scope.row.enable ? "启用" : "禁用" }}</el-button>
+          <el-button
+            size="mini"
+            :type="scope.row.enable ? 'success' : 'danger'"
+            plain
+            >{{ scope.row.enable ? "启用" : "禁用" }}</el-button
+          >
         </template>
         <template #createAt="scope">
-          <strong>{{ scope.row.createAt }}</strong>
+          <strong>{{ $filters.formatTime(scope.row.createAt) }}</strong>
         </template>
         <template #updateAt="scope">
-          <strong>{{ scope.row.updateAt }}</strong>
+          <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
         </template>
       </cms-table>
     </div>

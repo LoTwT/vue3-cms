@@ -67,7 +67,7 @@ const components = [
   ElTableColumn,
 ]
 
-export const customGlobalElementPlus = (app: App<Element>): void => {
+export const registerGlobalElementPlus = (app: App<Element>): void => {
   for (const component of components) {
     app.component(component.name, component)
   }
