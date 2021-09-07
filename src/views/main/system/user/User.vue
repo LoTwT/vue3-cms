@@ -10,7 +10,10 @@ import { tableContentConfig } from "./config/content.config"
   <div class="user">
     <page-search :search-form-config="searchFormConfig" />
     <div class="content">
-      <page-content :table-content-config="tableContentConfig" />
+      <page-content
+        :table-content-config="tableContentConfig"
+        page-name="User"
+      />
     </div>
   </div>
 </template>

@@ -3,23 +3,26 @@ import { computed } from "vue"
 import { useStore } from "@/store/index"
 import CmsTable from "@/base-ui/table/index"
 
-defineProps<{
+const props = defineProps<{
   tableContentConfig: {
     propList: any[]
     [key: string]: any
   }
+  pageName: string
 }>()
 
 const store = useStore()
 store.dispatch("system/getPageListAction", {
-  pageUrl: "/users/list",
+  pageName: props.pageName,
   queryInfo: {
     offset: 0,
     size: 10,
   },
 })
 
-const userList = computed(() => store.state.system.userList)
+const userList = computed(() =>
+  store.getters["system/pageListData"](props.pageName),
+)
 // 获得选择的数据
 const getSelectionChange = (value: any) => value
 </script>
