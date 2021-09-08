@@ -7,8 +7,8 @@ const props = withDefaults(
     modelValue: { [key: string]: any }
     formItems: IFormItem[]
     labelWidth: string
-    itemStyle: Object
-    colLayout: Object
+    itemStyle?: Object
+    colLayout?: Object
   }>(),
   {
     formItems: () => [],

@@ -2,14 +2,20 @@
 import CmsForm from "@/base-ui/form/index"
 import { ref } from "vue"
 
-defineProps<{ searchFormConfig: Record<string, any> }>()
+const props = defineProps<{ searchFormConfig: Record<string, any> }>()
 
-const formData = ref({
-  username: "",
-  password: "",
-  gender: "",
-  createTime: "",
-})
+// 1. 动态 form
+const formItems: any[] = props.searchFormConfig?.formItems ?? []
+const formOriginData: Record<string, any> = {}
+formItems.forEach((formItem) => (formOriginData[formItem.field] = ""))
+const formData = ref(formOriginData)
+
+// 2. 按钮处理
+const handleResetClick = () => {
+  for (const key in formOriginData) {
+    formData.value[key] = formOriginData[key]
+  }
+}
 </script>
 
 <template>
@@ -20,7 +26,9 @@ const formData = ref({
       </template>
       <template #footer>
         <div class="form-btns">
-          <el-button icon="el-icon-refresh">重置</el-button>
+          <el-button icon="el-icon-refresh" @click="handleResetClick"
+            >重置</el-button
+          >
           <el-button type="primary" icon="el-icon-search">搜索</el-button>
         </div>
       </template>
