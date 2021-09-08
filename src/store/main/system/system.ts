@@ -38,6 +38,10 @@ const system: Module<ISystemState, IBaseState> = {
         }
       }
     },
+    pageListCount(state) {
+      return (pageName: string) =>
+        (state as any)[`${pageName.toLowerCase()}Count`]
+    },
   },
   actions: {
     async getPageListAction({ commit }, payload: ISystemPayload) {

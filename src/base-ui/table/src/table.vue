@@ -1,22 +1,34 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     dataList: any[]
+    listCount: number
     propList: any[]
     showIndexColumn: boolean
     showSelectColumn: boolean
     headerTitle: string
+    page: Record<string, any>
   }>(),
   {
     showIndexColumn: false,
     showSelectColumn: false,
     headerTitle: "",
+    listCount: 0,
+    page: () => ({
+      currentPage: 0,
+      pageSize: 10,
+    }),
   },
 )
 
-const emit = defineEmits(["selectionChange"])
+const emit = defineEmits(["selectionChange", "update:page"])
 
 const handleSelectionChange = (value: any) => emit("selectionChange", value)
+
+const handleSizeChange = (pageSize: number) =>
+  emit("update:page", { ...props.page, pageSize })
+const handleCurrentChange = (currentPage: number) =>
+  emit("update:page", { ...props.page, currentPage })
 </script>
 
 <template>
@@ -60,16 +72,16 @@ const handleSelectionChange = (value: any) => emit("selectionChange", value)
     </el-table>
     <div class="footer">
       <slot name="footer">
-        <!-- <el-pagination
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+        <el-pagination
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="listCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >
-        </el-pagination> -->
+        </el-pagination>
       </slot>
     </div>
   </div>

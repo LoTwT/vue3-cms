@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, ref, watch } from "vue"
 import { useStore } from "@/store/index"
 import CmsTable from "@/base-ui/table/index"
 
@@ -11,13 +11,18 @@ const props = defineProps<{
   pageName: string
 }>()
 
+// 双向绑定 pageInfo
+const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+watch(pageInfo, () => getPageData())
+
 const store = useStore()
+// 发送网络请求
 const getPageData = (queryInfo: any = {}) => {
   store.dispatch("system/getPageListAction", {
     pageName: props.pageName,
     queryInfo: {
-      offset: 0,
-      size: 10,
+      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      size: pageInfo.value.pageSize,
       ...queryInfo,
     },
   })
@@ -25,16 +30,22 @@ const getPageData = (queryInfo: any = {}) => {
 getPageData()
 defineExpose({ getPageData })
 
-const userList = computed(() =>
+const dataList = computed(() =>
   store.getters["system/pageListData"](props.pageName),
 )
+const dataCount = computed(() =>
+  store.getters["system/pageListCount"](props.pageName),
+)
+
 // 获得选择的数据
 const getSelectionChange = (value: any) => value
 </script>
 
 <template>
   <cms-table
-    :data-list="userList"
+    v-model:page="pageInfo"
+    :data-list="dataList"
+    :list-count="dataCount"
     v-bind="tableContentConfig"
     @selection-change="getSelectionChange"
   >
