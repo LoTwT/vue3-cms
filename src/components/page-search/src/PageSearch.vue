@@ -3,6 +3,7 @@ import CmsForm from "@/base-ui/form/index"
 import { ref } from "vue"
 
 const props = defineProps<{ searchFormConfig: Record<string, any> }>()
+const emit = defineEmits(["resetBtnClick", "queryBtnClick"])
 
 // 1. 动态 form
 const formItems: any[] = props.searchFormConfig?.formItems ?? []
@@ -15,7 +16,10 @@ const handleResetClick = () => {
   for (const key in formOriginData) {
     formData.value[key] = formOriginData[key]
   }
+  emit("resetBtnClick")
 }
+
+const handleQueryClick = () => emit("queryBtnClick", formData.value)
 </script>
 
 <template>
@@ -29,7 +33,12 @@ const handleResetClick = () => {
           <el-button icon="el-icon-refresh" @click="handleResetClick"
             >重置</el-button
           >
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="handleQueryClick"
+            >搜索</el-button
+          >
         </div>
       </template>
     </cms-form>

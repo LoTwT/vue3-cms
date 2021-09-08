@@ -12,13 +12,18 @@ const props = defineProps<{
 }>()
 
 const store = useStore()
-store.dispatch("system/getPageListAction", {
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 10,
-  },
-})
+const getPageData = (queryInfo: any = {}) => {
+  store.dispatch("system/getPageListAction", {
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+      ...queryInfo,
+    },
+  })
+}
+getPageData()
+defineExpose({ getPageData })
 
 const userList = computed(() =>
   store.getters["system/pageListData"](props.pageName),

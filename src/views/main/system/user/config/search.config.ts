@@ -10,29 +10,41 @@ export const searchFormConfig: IForm = {
   },
   formItems: [
     {
-      field: "username",
+      field: "id",
+      type: EFormType.INPUT,
+      label: "id",
+      placeholder: "请输入 id",
+    },
+    {
+      field: "name",
       type: EFormType.INPUT,
       label: "用户名",
       placeholder: "请输入用户名",
     },
     {
-      field: "password",
-      type: EFormType.PASSWORD,
-      label: "密码",
-      placeholder: "请输入密码",
+      field: "realname",
+      type: EFormType.INPUT,
+      label: "真实姓名",
+      placeholder: "请输入真实姓名",
     },
     {
-      field: "gender",
+      field: "cellphone",
+      type: EFormType.INPUT,
+      label: "电话号码",
+      placeholder: "请输入电话号码",
+    },
+    {
+      field: "enable",
       type: EFormType.SELECT,
-      label: "性别",
-      placeholder: "请选择性别",
+      label: "用户状态",
+      placeholder: "请选择用户状态",
       options: [
-        { title: "男", value: "male" },
-        { title: "女", value: "female" },
+        { title: "启用", value: 1 },
+        { title: "禁用", value: 0 },
       ],
     },
     {
-      field: "createTime",
+      field: "createAt",
       type: EFormType.DATE_PICKER,
       label: "创建时间",
       otherOptions: {
