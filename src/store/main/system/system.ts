@@ -7,20 +7,22 @@ const system: Module<ISystemState, IBaseState> = {
   namespaced: true,
   state() {
     return {
-      userList: [],
-      userCount: 0,
+      usersList: [],
+      usersCount: 0,
       roleList: [],
       roleCount: 0,
       goodsList: [],
       goodsCount: 0,
+      menuList: [],
+      menuCount: 0,
     }
   },
   mutations: {
-    changeUserList(state, userList: any[]) {
-      state.userList = userList
+    changeUsersList(state, userList: any[]) {
+      state.usersList = userList
     },
-    changeUserCount(state, userCount: number) {
-      state.userCount = userCount
+    changeUsersCount(state, userCount: number) {
+      state.usersCount = userCount
     },
     changeRoleList(state, roleList: any[]) {
       state.roleList = roleList
@@ -34,19 +36,17 @@ const system: Module<ISystemState, IBaseState> = {
     changeGoodsCount(state, goodsCount: number) {
       state.goodsCount = goodsCount
     },
+    changeMenuList(state, menuList: any[]) {
+      state.menuList = menuList
+    },
+    changeMenuCount(state, menuCount: number) {
+      state.menuCount = menuCount
+    },
   },
   getters: {
     pageListData(state) {
-      return (pageName: string) => {
-        switch (pageName) {
-          case "User":
-            return state.userList
-          case "Role":
-            return state.roleList
-          case "Goods":
-            return state.goodsList
-        }
-      }
+      return (pageName: string) =>
+        (state as any)[`${pageName.toLowerCase()}List`]
     },
     pageListCount(state) {
       return (pageName: string) =>
@@ -57,26 +57,14 @@ const system: Module<ISystemState, IBaseState> = {
     async getPageListAction({ commit }, payload: ISystemPayload) {
       // 1. 获取 pageUrl
       const pageName = payload.pageName
-      let pageUrl = ""
-
-      switch (pageName) {
-        case "User":
-          pageUrl = "/users/list"
-          break
-        case "Role":
-          pageUrl = "/role/list"
-          break
-        case "Goods":
-          pageUrl = "/goods/list"
-        default:
-          break
-      }
+      const pageUrl = `/${pageName.toLowerCase()}/list`
 
       // 2. 发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
 
       // 3. 数据存入 store
       const { list, totalCount } = pageResult.data
+      console.log(`change${pageName}List`)
       commit(`change${pageName}List`, list)
       commit(`change${pageName}Count`, totalCount)
     },

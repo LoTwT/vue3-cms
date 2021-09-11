@@ -21,7 +21,7 @@ const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
       <page-content
         ref="pageContentRef"
         :table-content-config="tableContentConfig"
-        page-name="User"
+        page-name="Users"
       />
     </div>
   </div>

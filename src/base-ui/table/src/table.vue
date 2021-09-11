@@ -8,6 +8,8 @@ const props = withDefaults(
     showSelectColumn: boolean
     headerTitle: string
     page: Record<string, any>
+    childrenProps: object
+    showFooter: boolean
   }>(),
   {
     showIndexColumn: false,
@@ -18,6 +20,8 @@ const props = withDefaults(
       currentPage: 0,
       pageSize: 10,
     }),
+    childrenProps: () => ({}),
+    showFooter: true,
   },
 )
 
@@ -45,6 +49,7 @@ const handleCurrentChange = (currentPage: number) =>
       :data="dataList"
       border
       style="width: 100%"
+      v-bind="childrenProps"
       @selection-change="handleSelectionChange"
     >
       <el-table-column
@@ -70,7 +75,7 @@ const handleCurrentChange = (currentPage: number) =>
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div v-if="showFooter" class="footer">
       <slot name="footer">
         <el-pagination
           :current-page="page.currentPage"
