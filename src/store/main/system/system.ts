@@ -11,6 +11,8 @@ const system: Module<ISystemState, IBaseState> = {
       userCount: 0,
       roleList: [],
       roleCount: 0,
+      goodsList: [],
+      goodsCount: 0,
     }
   },
   mutations: {
@@ -26,6 +28,12 @@ const system: Module<ISystemState, IBaseState> = {
     changeRoleCount(state, roleCount: number) {
       state.roleCount = roleCount
     },
+    changeGoodsList(state, goodsList: any[]) {
+      state.goodsList = goodsList
+    },
+    changeGoodsCount(state, goodsCount: number) {
+      state.goodsCount = goodsCount
+    },
   },
   getters: {
     pageListData(state) {
@@ -35,6 +43,8 @@ const system: Module<ISystemState, IBaseState> = {
             return state.userList
           case "Role":
             return state.roleList
+          case "Goods":
+            return state.goodsList
         }
       }
     },
@@ -56,6 +66,8 @@ const system: Module<ISystemState, IBaseState> = {
         case "Role":
           pageUrl = "/role/list"
           break
+        case "Goods":
+          pageUrl = "/goods/list"
         default:
           break
       }

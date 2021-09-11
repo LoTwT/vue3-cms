@@ -17,6 +17,7 @@ import {
   ElForm,
   ElFormItem,
   ElHeader,
+  ElImage,
   ElInput,
   ElLink,
   ElMain,
@@ -67,6 +68,7 @@ const components = [
   ElTable,
   ElTableColumn,
   ElPagination,
+  ElImage,
 ]
 
 export const registerGlobalElementPlus = (app: App<Element>): void => {

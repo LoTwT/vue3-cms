@@ -39,6 +39,17 @@ const dataCount = computed(() =>
 
 // 获得选择的数据
 const getSelectionChange = (value: any) => value
+
+// 获取其他动态插槽名称
+const otherPropSlots = props.tableContentConfig.propList.filter(
+  (item) =>
+    !(
+      item.slotName === "status" ||
+      item.slotName === "createAt" ||
+      item.slotName === "updateAt" ||
+      item.slotName === "handler"
+    ),
+)
 </script>
 
 <template>
@@ -78,6 +89,15 @@ const getSelectionChange = (value: any) => value
           删除
         </el-button>
       </div>
+    </template>
+    <template
+      v-for="item in otherPropSlots"
+      :key="item.prop"
+      #[item.slotName]="scope"
+    >
+      <template v-if="item.slotName">
+        <slot :name="item.slotName" :row="scope.row"></slot>
+      </template>
     </template>
   </cms-table>
 </template>
