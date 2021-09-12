@@ -64,7 +64,6 @@ const system: Module<ISystemState, IBaseState> = {
 
       // 3. 数据存入 store
       const { list, totalCount } = pageResult.data
-      console.log(`change${pageName}List`)
       commit(`change${pageName}List`, list)
       commit(`change${pageName}Count`, totalCount)
     },

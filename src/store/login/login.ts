@@ -9,7 +9,7 @@ import {
 import { IAccount } from "@/service/login/types"
 import { useLocalCache } from "@/utils/cache"
 import router from "@/router/index"
-import { mapMenusToRoutes } from "@/utils/map-menus"
+import { mapMenusToPermissions, mapMenusToRoutes } from "@/utils/map-menus"
 
 // 本地存储
 const localCache = useLocalCache()
@@ -21,6 +21,7 @@ const login: Module<ILoginState, IBaseState> = {
       token: "",
       userInfo: {},
       userMenus: [],
+      permissions: [],
     }
   },
   getters: {},
@@ -38,6 +39,8 @@ const login: Module<ILoginState, IBaseState> = {
       const routes = mapMenusToRoutes(userMenus)
       // routes => router.main.children
       routes.forEach((route) => router.addRoute("main", route))
+      // 获取用户按钮的权限
+      state.permissions = mapMenusToPermissions(userMenus)
     },
   },
   actions: {

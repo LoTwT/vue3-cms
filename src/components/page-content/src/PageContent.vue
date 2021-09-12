@@ -2,6 +2,7 @@
 import { computed, ref, watch } from "vue"
 import { useStore } from "@/store/index"
 import CmsTable from "@/base-ui/table/index"
+import { usePermission } from "@/hooks/use-permission"
 
 const props = defineProps<{
   tableContentConfig: {
@@ -11,6 +12,12 @@ const props = defineProps<{
   pageName: string
 }>()
 
+// 获取操作的权限
+const canCreate = usePermission(props.pageName, "create")
+const canUpdate = usePermission(props.pageName, "update")
+const canDelete = usePermission(props.pageName, "delete")
+const canQuery = usePermission(props.pageName, "query")
+
 // 双向绑定 pageInfo
 const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 watch(pageInfo, () => getPageData())
@@ -18,6 +25,8 @@ watch(pageInfo, () => getPageData())
 const store = useStore()
 // 发送网络请求
 const getPageData = (queryInfo: any = {}) => {
+  if (!canQuery) return
+
   store.dispatch("system/getPageListAction", {
     pageName: props.pageName,
     queryInfo: {
@@ -63,7 +72,9 @@ const otherPropSlots = props.tableContentConfig.propList.filter(
     <!-- header 插槽 -->
     <template #headerHandler>
       <el-button icon="el-icon-refresh"></el-button>
-      <el-button type="primary" size="medium">新建用户</el-button>
+      <el-button v-if="canCreate" type="primary" size="medium">
+        新建用户
+      </el-button>
     </template>
     <!-- 数据列插槽 -->
     <template #status="scope">
@@ -82,10 +93,15 @@ const otherPropSlots = props.tableContentConfig.propList.filter(
     </template>
     <template #handler>
       <div class="handle-btns">
-        <el-button icon="el-icon-edit" type="text" size="mini">
+        <el-button v-if="canUpdate" icon="el-icon-edit" type="text" size="mini">
           编辑
         </el-button>
-        <el-button icon="el-icon-delete" type="text" size="mini">
+        <el-button
+          v-if="canDelete"
+          icon="el-icon-delete"
+          type="text"
+          size="mini"
+        >
           删除
         </el-button>
       </div>
