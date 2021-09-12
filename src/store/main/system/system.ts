@@ -1,7 +1,7 @@
 import { IBaseState } from "@/store/types"
 import { Module } from "vuex"
 import { ISystemPayload, ISystemState } from "./types"
-import { getPageListData } from "@/service/main/system/system"
+import { deletePageData, getPageListData } from "@/service/main/system/system"
 
 const system: Module<ISystemState, IBaseState> = {
   namespaced: true,
@@ -66,6 +66,23 @@ const system: Module<ISystemState, IBaseState> = {
       const { list, totalCount } = pageResult.data
       commit(`change${pageName}List`, list)
       commit(`change${pageName}Count`, totalCount)
+    },
+    async deletePageDataAction({ dispatch }, payload: any) {
+      // 1. 获取 pageName, id
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName.toLowerCase()}/${id}`
+
+      // 2. 删除请求
+      await deletePageData(pageUrl)
+
+      // 3. 重新请求数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      })
     },
   },
 }

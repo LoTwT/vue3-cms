@@ -19,7 +19,7 @@ const canDelete = usePermission(props.pageName, "delete")
 const canQuery = usePermission(props.pageName, "query")
 
 // 双向绑定 pageInfo
-const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+const pageInfo = ref({ currentPage: 1, pageSize: 10 })
 watch(pageInfo, () => getPageData())
 
 const store = useStore()
@@ -30,7 +30,7 @@ const getPageData = (queryInfo: any = {}) => {
   store.dispatch("system/getPageListAction", {
     pageName: props.pageName,
     queryInfo: {
-      offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+      offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
       size: pageInfo.value.pageSize,
       ...queryInfo,
     },
@@ -59,6 +59,14 @@ const otherPropSlots = props.tableContentConfig.propList.filter(
       item.slotName === "handler"
     ),
 )
+
+// 删除操作
+const handleDeleteClick = (item: any) => {
+  store.dispatch("system/deletePageDataAction", {
+    pageName: props.pageName,
+    id: item.id,
+  })
+}
 </script>
 
 <template>
@@ -91,7 +99,7 @@ const otherPropSlots = props.tableContentConfig.propList.filter(
     <template #updateAt="scope">
       <strong>{{ $filters.formatTime(scope.row.updateAt) }}</strong>
     </template>
-    <template #handler>
+    <template #handler="scope">
       <div class="handle-btns">
         <el-button v-if="canUpdate" icon="el-icon-edit" type="text" size="mini">
           编辑
@@ -101,6 +109,7 @@ const otherPropSlots = props.tableContentConfig.propList.filter(
           icon="el-icon-delete"
           type="text"
           size="mini"
+          @click="handleDeleteClick(scope.row)"
         >
           删除
         </el-button>
