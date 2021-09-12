@@ -11,6 +11,7 @@ import {
   ElCol,
   ElContainer,
   ElDatePicker,
+  ElDialog,
   ElDropdown,
   ElDropdownItem,
   ElDropdownMenu,
@@ -69,6 +70,7 @@ const components = [
   ElTableColumn,
   ElPagination,
   ElImage,
+  ElDialog,
 ]
 
 export const registerGlobalElementPlus = (app: App<Element>): void => {

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import PageSearch from "@/components/page-search/index"
 import PageContent from "@/components/page-content/index"
+import PageModal from "@/components/page-modal/index"
 
+import { modalConfig } from "./config/modal.config"
 import { searchFormConfig } from "./config/search.config"
 import { tableContentConfig } from "./config/content.config"
 
@@ -23,6 +25,9 @@ const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
         :table-content-config="tableContentConfig"
         page-name="Users"
       />
+    </div>
+    <div class="page-modal">
+      <page-modal :modal-config="modalConfig" />
     </div>
   </div>
 </template>
