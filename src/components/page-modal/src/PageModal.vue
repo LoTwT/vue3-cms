@@ -1,11 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import CmsForm, { IForm } from "@/base-ui/form"
 
-defineProps<{ modalConfig: IForm }>()
+const props = withDefaults(
+  defineProps<{ modalConfig: IForm; defaultInfo: object }>(),
+  {
+    defaultInfo: () => ({}),
+  },
+)
 
 const dislogVisible = ref(false)
-const formData = ref({})
+const formData = ref<any>({})
+
+watch(
+  () => props.defaultInfo,
+  (newValue) => {
+    for (const item of props.modalConfig.formItems) {
+      formData.value[`${item.field}`] = (newValue as any)[`${item.field}`]
+    }
+  },
+)
+
+defineExpose({ dislogVisible })
 </script>
 
 <template>

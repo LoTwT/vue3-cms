@@ -8,8 +8,11 @@ import { searchFormConfig } from "./config/search.config"
 import { tableContentConfig } from "./config/content.config"
 
 import { usePageSearch } from "@/hooks/use-page-search"
+import { usePageModal } from "@/hooks/use-page-modal"
 
 const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
+const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
+  usePageModal()
 </script>
 
 <template>
@@ -24,10 +27,16 @@ const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
         ref="pageContentRef"
         :table-content-config="tableContentConfig"
         page-name="Users"
+        @create-btn-click="handleNewData"
+        @edit-btn-click="handleEditData"
       />
     </div>
     <div class="page-modal">
-      <page-modal :modal-config="modalConfig" />
+      <page-modal
+        ref="pageModalRef"
+        :default-info="defaultInfo"
+        :modal-config="modalConfig"
+      />
     </div>
   </div>
 </template>

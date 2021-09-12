@@ -12,6 +12,8 @@ const props = defineProps<{
   pageName: string
 }>()
 
+const emit = defineEmits(["createBtnClick", "editBtnClick"])
+
 // 获取操作的权限
 const canCreate = usePermission(props.pageName, "create")
 const canUpdate = usePermission(props.pageName, "update")
@@ -67,6 +69,9 @@ const handleDeleteClick = (item: any) => {
     id: item.id,
   })
 }
+
+const handleCreateClick = () => emit("createBtnClick")
+const handleEditClick = (item: any) => emit("editBtnClick", item)
 </script>
 
 <template>
@@ -80,7 +85,12 @@ const handleDeleteClick = (item: any) => {
     <!-- header 插槽 -->
     <template #headerHandler>
       <el-button icon="el-icon-refresh"></el-button>
-      <el-button v-if="canCreate" type="primary" size="medium">
+      <el-button
+        v-if="canCreate"
+        type="primary"
+        size="medium"
+        @click="handleCreateClick"
+      >
         新建用户
       </el-button>
     </template>
@@ -101,7 +111,13 @@ const handleDeleteClick = (item: any) => {
     </template>
     <template #handler="scope">
       <div class="handle-btns">
-        <el-button v-if="canUpdate" icon="el-icon-edit" type="text" size="mini">
+        <el-button
+          v-if="canUpdate"
+          icon="el-icon-edit"
+          type="text"
+          size="mini"
+          @click="handleEditClick(scope.row)"
+        >
           编辑
         </el-button>
         <el-button
