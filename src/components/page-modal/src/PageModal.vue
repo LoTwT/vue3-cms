@@ -25,7 +25,13 @@ defineExpose({ dislogVisible })
 </script>
 
 <template>
-  <el-dialog v-model="dislogVisible" title="新建用户" width="30%" center>
+  <el-dialog
+    v-model="dislogVisible"
+    title="新建用户"
+    width="30%"
+    center
+    destroy-on-close
+  >
     <cms-form v-model="formData" v-bind="modalConfig" />
     <template #footer>
       <span class="dialog-footer">

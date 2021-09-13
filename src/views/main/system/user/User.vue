@@ -9,10 +9,27 @@ import { tableContentConfig } from "./config/content.config"
 
 import { usePageSearch } from "@/hooks/use-page-search"
 import { usePageModal } from "@/hooks/use-page-modal"
+import { EFormType } from "@/base-ui/form"
 
 const { pageContentRef, handleResetClick, handleQueryClick } = usePageSearch()
+
+// PageModal 相关
+const createCallback = () => {
+  const passwordItem = modalConfig.formItems.find(
+    (item) => item.type === EFormType.PASSWORD,
+  )
+
+  passwordItem!.isHidden = false
+}
+const editCallBack = () => {
+  const passwordItem = modalConfig.formItems.find(
+    (item) => item.type === EFormType.PASSWORD,
+  )
+
+  passwordItem!.isHidden = true
+}
 const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
-  usePageModal()
+  usePageModal(createCallback, editCallBack)
 </script>
 
 <template>
