@@ -11,6 +11,7 @@ const store = createStore<IBaseState>({
       age: 1,
       entireDepartment: [],
       entireRole: [],
+      entireMenu: [],
     }
   },
   mutations: {
@@ -19,6 +20,9 @@ const store = createStore<IBaseState>({
     },
     changeEntireRole(state, entireRole) {
       state.entireRole = entireRole
+    },
+    changeEntireMenu(state, entireMenu) {
+      state.entireMenu = entireMenu
     },
   },
   actions: {
@@ -32,13 +36,16 @@ const store = createStore<IBaseState>({
         offset: 0,
         size: 100,
       })
+      const menuResult = await getPageListData("/menu/list", {})
 
       const { list: departmentList } = departmentResult.data
       const { list: roleList } = roleResult.data
+      const { list: menuList } = menuResult.data
 
       // 2. 保存数据
       commit("changeEntireDepartment", departmentList)
       commit("changeEntireRole", roleList)
+      commit("changeEntireMenu", menuList)
     },
   },
   modules: { login, system },

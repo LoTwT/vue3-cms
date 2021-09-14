@@ -1,7 +1,7 @@
 import { ref } from "vue"
 import PageModal from "@/components/page-modal/index"
 
-type CallbackFn = () => void
+type CallbackFn = (item?: any) => void
 
 export const usePageModal = (
   createCallback?: CallbackFn,
@@ -23,7 +23,7 @@ export const usePageModal = (
       pageModalRef.value.dislogVisible = true
     }
 
-    editCallback && editCallback()
+    editCallback && editCallback(item)
   }
 
   return { pageModalRef, defaultInfo, handleNewData, handleEditData }

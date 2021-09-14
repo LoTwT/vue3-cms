@@ -35,6 +35,7 @@ import {
   ElTableColumn,
   ElTabPane,
   ElTabs,
+  ElTree,
 } from "element-plus"
 
 const components = [
@@ -71,6 +72,7 @@ const components = [
   ElPagination,
   ElImage,
   ElDialog,
+  ElTree,
 ]
 
 export const registerGlobalElementPlus = (app: App<Element>): void => {

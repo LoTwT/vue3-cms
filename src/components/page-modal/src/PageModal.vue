@@ -8,9 +8,11 @@ const props = withDefaults(
     pageName: string
     modalConfig: IForm
     defaultInfo: Record<string, any>
+    otherInfo: Record<string, any>
   }>(),
   {
     defaultInfo: () => ({}),
+    otherInfo: () => ({}),
   },
 )
 
@@ -34,14 +36,14 @@ const handleConfirmClick = () => {
     // 编辑
     store.dispatch("system/editPageDataAction", {
       pageName: props.pageName,
-      editData: { ...formData.value },
+      editData: { ...formData.value, ...props.otherInfo },
       id: props.defaultInfo.id,
     })
   } else {
     // 新建
     store.dispatch("system/createPageDataAction", {
       pageName: props.pageName,
-      newData: { ...formData.value },
+      newData: { ...formData.value, ...props.otherInfo },
     })
   }
 }
@@ -58,6 +60,7 @@ defineExpose({ dislogVisible })
     destroy-on-close
   >
     <cms-form v-model="formData" v-bind="modalConfig" />
+    <slot />
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dislogVisible = false">取 消</el-button>

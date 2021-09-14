@@ -6,6 +6,7 @@ export interface IBaseState {
   age: number
   entireDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 
 export interface IBaseWithModule {
