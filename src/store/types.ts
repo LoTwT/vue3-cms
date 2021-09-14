@@ -4,6 +4,8 @@ import { ISystemState } from "./main/system/types"
 export interface IBaseState {
   name: string
   age: number
+  entireDepartment: any[]
+  entireRole: any[]
 }
 
 export interface IBaseWithModule {
