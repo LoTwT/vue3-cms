@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import { useStore } from "@/store"
+import { useLocalCache } from "@/utils/cache"
+import { useRouter } from "vue-router"
 
 const store = useStore()
 const username = computed(() => store.state.login.userInfo.name)
+
+const localCache = useLocalCache()
+const router = useRouter()
+const handleLogoutClick = () => {
+  localCache.removeCache("token")
+  router.push("/main")
+}
 </script>
 
 <template>
@@ -18,9 +27,12 @@ const username = computed(() => store.state.login.userInfo.name)
       </span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="el-icon-circle-close"
-            >退出登录</el-dropdown-item
+          <el-dropdown-item
+            icon="el-icon-circle-close"
+            @click="handleLogoutClick"
           >
+            退出登录
+          </el-dropdown-item>
           <el-dropdown-item divided>用户信息</el-dropdown-item>
           <el-dropdown-item>系统管理</el-dropdown-item>
         </el-dropdown-menu>
