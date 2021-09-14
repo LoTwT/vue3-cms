@@ -9,4 +9,4 @@ const DATE_TIME_FORMAT = "YYYY-MM-DD HH:mm:ss"
 export const formatUtcTime = (
   utcTime: string,
   format: string = DATE_TIME_FORMAT,
-) => dayjs.utc(utcTime).format(format)
+) => dayjs.utc(utcTime).utcOffset(8).format(format)
