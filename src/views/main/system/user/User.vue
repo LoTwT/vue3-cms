@@ -74,6 +74,7 @@ const { pageModalRef, defaultInfo, handleNewData, handleEditData } =
     <div class="page-modal">
       <page-modal
         ref="pageModalRef"
+        page-name="Users"
         :default-info="defaultInfo"
         :modal-config="modalConfigRef"
       />

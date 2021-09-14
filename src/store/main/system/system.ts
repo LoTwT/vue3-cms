@@ -1,7 +1,12 @@
 import { IBaseState } from "@/store/types"
 import { Module } from "vuex"
 import { ISystemPayload, ISystemState } from "./types"
-import { deletePageData, getPageListData } from "@/service/main/system/system"
+import {
+  createPageData,
+  deletePageData,
+  editPageData,
+  getPageListData,
+} from "@/service/main/system/system"
 
 const system: Module<ISystemState, IBaseState> = {
   namespaced: true,
@@ -76,6 +81,36 @@ const system: Module<ISystemState, IBaseState> = {
       await deletePageData(pageUrl)
 
       // 3. 重新请求数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      })
+    },
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 1. 创建数据的请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName.toLowerCase()}`
+      await createPageData(pageUrl, newData)
+
+      // 2. 请求最新的数据
+      dispatch("getPageListAction", {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      })
+    },
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1. 创建数据的请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName.toLowerCase()}/${id}`
+      await editPageData(pageUrl, editData)
+
+      // 2. 请求最新的数据
       dispatch("getPageListAction", {
         pageName,
         queryInfo: {
