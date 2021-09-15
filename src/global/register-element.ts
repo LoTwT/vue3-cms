@@ -7,6 +7,7 @@ import {
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElButton,
+  ElCard,
   ElCheckbox,
   ElCol,
   ElContainer,
@@ -73,6 +74,7 @@ const components = [
   ElImage,
   ElDialog,
   ElTree,
+  ElCard,
 ]
 
 export const registerGlobalElementPlus = (app: App<Element>): void => {

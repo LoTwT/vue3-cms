@@ -2,6 +2,7 @@ import { createStore, Store, useStore as useVuexStore } from "vuex"
 import { IBaseState, IStore } from "./types"
 import login from "./login/login"
 import system from "./main/system/system"
+import dashboard from "./main/analysis/dashboard"
 import { getPageListData } from "@/service/main/system/system"
 
 const store = createStore<IBaseState>({
@@ -48,7 +49,11 @@ const store = createStore<IBaseState>({
       commit("changeEntireMenu", menuList)
     },
   },
-  modules: { login, system },
+  modules: {
+    login,
+    system,
+    dashboard,
+  },
 })
 
 export default store
