@@ -1,27 +1,18 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import { useStore } from "@/store"
 import CmsCard from "@/base-ui/card"
-import BaseEchart from "@/base-ui/echart"
-import { EChartsOption } from "echarts"
+import { PieEchart } from "@/components/page-echarts"
 
 const store = useStore()
 store.dispatch("dashboard/getDashboardDataAction")
 
-const options: EChartsOption = {
-  xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: "line",
-    },
-  ],
-}
+const categoryGoodsCount = computed(() =>
+  store.state.dashboard.categoryGoodsCount.map((item) => ({
+    name: item.name,
+    value: item.goodsCount,
+  })),
+)
 </script>
 
 <template>
@@ -29,7 +20,7 @@ const options: EChartsOption = {
     <el-row :gutter="10">
       <el-col :span="7">
         <cms-card title="分类商品数量(饼图)">
-          <base-echart :options="options" />
+          <pie-echart :pie-data="categoryGoodsCount" />
         </cms-card>
       </el-col>
       <el-col :span="10">

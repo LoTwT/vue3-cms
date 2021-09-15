@@ -1,4 +1,5 @@
 import { ILoginState } from "./login/types"
+import { IDashboardState } from "./main/analysis/types"
 import { ISystemState } from "./main/system/types"
 
 export interface IBaseState {
@@ -12,6 +13,7 @@ export interface IBaseState {
 export interface IBaseWithModule {
   login: ILoginState
   system: ISystemState
+  dashboard: IDashboardState
 }
 
 export type IStore = IBaseState & IBaseWithModule
