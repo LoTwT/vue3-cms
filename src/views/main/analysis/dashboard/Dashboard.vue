@@ -2,11 +2,12 @@
 import { useStore } from "@/store"
 import CmsCard from "@/base-ui/card"
 import BaseEchart from "@/base-ui/echart"
+import { EChartsOption } from "echarts"
 
 const store = useStore()
 store.dispatch("dashboard/getDashboardDataAction")
 
-const options = {
+const options: EChartsOption = {
   xAxis: {
     type: "category",
     data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
