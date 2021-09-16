@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import { useStore } from "@/store"
 import CmsCard from "@/base-ui/card"
-import { PieEchart } from "@/components/page-echarts"
+import { PieEchart, RoseEchart } from "@/components/page-echarts"
 
 const store = useStore()
 store.dispatch("dashboard/getDashboardDataAction")
@@ -27,7 +27,9 @@ const categoryGoodsCount = computed(() =>
         <cms-card title="不同城市商品销量"></cms-card>
       </el-col>
       <el-col :span="7">
-        <cms-card title="分类商品数量(玫瑰图)"></cms-card>
+        <cms-card title="分类商品数量(玫瑰图)">
+          <rose-echart :rose-data="categoryGoodsCount" />
+        </cms-card>
       </el-col>
     </el-row>
     <el-row :gutter="10" class="content-row">
