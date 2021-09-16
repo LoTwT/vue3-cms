@@ -7,6 +7,7 @@ import {
   RoseEchart,
   LineEchart,
   BarEchart,
+  MapEchart,
 } from "@/components/page-echarts"
 
 const store = useStore()
@@ -44,6 +45,13 @@ const categoryGoodsFavor = computed(() => {
 
   return { xLabels, values }
 })
+
+const addressGoodsSale = computed(() =>
+  store.state.dashboard.addressGoodsSale.map((item) => ({
+    name: item.address,
+    value: item.count,
+  })),
+)
 </script>
 
 <template>
@@ -55,7 +63,9 @@ const categoryGoodsFavor = computed(() => {
         </cms-card>
       </el-col>
       <el-col :span="10">
-        <cms-card title="不同城市商品销量"> </cms-card>
+        <cms-card title="不同城市商品销量">
+          <map-echart :map-data="addressGoodsSale" />
+        </cms-card>
       </el-col>
       <el-col :span="7">
         <cms-card title="分类商品数量(玫瑰图)">
