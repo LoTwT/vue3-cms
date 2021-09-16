@@ -2,7 +2,12 @@
 import { computed } from "vue"
 import { useStore } from "@/store"
 import CmsCard from "@/base-ui/card"
-import { PieEchart, RoseEchart, LineEchart } from "@/components/page-echarts"
+import {
+  PieEchart,
+  RoseEchart,
+  LineEchart,
+  BarEchart,
+} from "@/components/page-echarts"
 
 const store = useStore()
 store.dispatch("dashboard/getDashboardDataAction")
@@ -22,6 +27,19 @@ const categoryGoodsSale = computed(() => {
   categoryGoodsSaleData.forEach((data) => {
     xLabels.push(data.name)
     values.push(data.goodsCount)
+  })
+
+  return { xLabels, values }
+})
+
+const categoryGoodsFavor = computed(() => {
+  const xLabels: string[] = []
+  const values: any[] = []
+
+  const categoryGoodsFavorData = store.state.dashboard.categoryGoodsFavor
+  categoryGoodsFavorData.forEach((data) => {
+    xLabels.push(data.name)
+    values.push(data.goodsFavor)
   })
 
   return { xLabels, values }
@@ -52,7 +70,9 @@ const categoryGoodsSale = computed(() => {
         </cms-card>
       </el-col>
       <el-col :span="12">
-        <cms-card title="分类商品的收藏"></cms-card>
+        <cms-card title="分类商品的收藏">
+          <bar-echart v-bind="categoryGoodsFavor" />
+        </cms-card>
       </el-col>
     </el-row>
   </div>

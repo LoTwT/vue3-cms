@@ -2,7 +2,6 @@
 import { computed } from "vue"
 import BaseEchart from "@/base-ui/echart"
 import type { EChartsOption } from "echarts"
-import { IEchartData } from "../types"
 
 const props = defineProps<{
   xLabels: string[]
