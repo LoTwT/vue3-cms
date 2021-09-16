@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import { useStore } from "@/store"
 import CmsCard from "@/base-ui/card"
-import { PieEchart, RoseEchart } from "@/components/page-echarts"
+import { PieEchart, RoseEchart, LineEchart } from "@/components/page-echarts"
 
 const store = useStore()
 store.dispatch("dashboard/getDashboardDataAction")
@@ -13,6 +13,19 @@ const categoryGoodsCount = computed(() =>
     value: item.goodsCount,
   })),
 )
+
+const categoryGoodsSale = computed(() => {
+  const xLabels: string[] = []
+  const values: any[] = []
+
+  const categoryGoodsSaleData = store.state.dashboard.categoryGoodsSale
+  categoryGoodsSaleData.forEach((data) => {
+    xLabels.push(data.name)
+    values.push(data.goodsCount)
+  })
+
+  return { xLabels, values }
+})
 </script>
 
 <template>
@@ -24,7 +37,7 @@ const categoryGoodsCount = computed(() =>
         </cms-card>
       </el-col>
       <el-col :span="10">
-        <cms-card title="不同城市商品销量"></cms-card>
+        <cms-card title="不同城市商品销量"> </cms-card>
       </el-col>
       <el-col :span="7">
         <cms-card title="分类商品数量(玫瑰图)">
@@ -34,7 +47,9 @@ const categoryGoodsCount = computed(() =>
     </el-row>
     <el-row :gutter="10" class="content-row">
       <el-col :span="12">
-        <cms-card title="分类商品的销量"></cms-card>
+        <cms-card title="分类商品的销量">
+          <line-echart v-bind="categoryGoodsSale" />
+        </cms-card>
       </el-col>
       <el-col :span="12">
         <cms-card title="分类商品的收藏"></cms-card>
