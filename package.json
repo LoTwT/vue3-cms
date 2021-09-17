@@ -3,7 +3,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --fix --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\"",
     "lint:lint-staged": "lint-staged -c ./lint-staged.config.js",
