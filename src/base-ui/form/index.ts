@@ -1,4 +1,4 @@
-import CmsForm from "./src/Form.vue"
+import CmsForm from "./src/form.vue"
 
 export default CmsForm
 
